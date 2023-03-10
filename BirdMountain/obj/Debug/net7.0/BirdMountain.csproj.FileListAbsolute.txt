@@ -1,0 +1,15 @@
+D:\Programowanie\GitHub\CodeWars\BirdMountain\bin\Debug\net7.0\BirdMountain.exe
+D:\Programowanie\GitHub\CodeWars\BirdMountain\bin\Debug\net7.0\BirdMountain.deps.json
+D:\Programowanie\GitHub\CodeWars\BirdMountain\bin\Debug\net7.0\BirdMountain.runtimeconfig.json
+D:\Programowanie\GitHub\CodeWars\BirdMountain\bin\Debug\net7.0\BirdMountain.dll
+D:\Programowanie\GitHub\CodeWars\BirdMountain\bin\Debug\net7.0\BirdMountain.pdb
+D:\Programowanie\GitHub\CodeWars\BirdMountain\obj\Debug\net7.0\BirdMountain.csproj.AssemblyReference.cache
+D:\Programowanie\GitHub\CodeWars\BirdMountain\obj\Debug\net7.0\BirdMountain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programowanie\GitHub\CodeWars\BirdMountain\obj\Debug\net7.0\BirdMountain.AssemblyInfoInputs.cache
+D:\Programowanie\GitHub\CodeWars\BirdMountain\obj\Debug\net7.0\BirdMountain.AssemblyInfo.cs
+D:\Programowanie\GitHub\CodeWars\BirdMountain\obj\Debug\net7.0\BirdMountain.csproj.CoreCompileInputs.cache
+D:\Programowanie\GitHub\CodeWars\BirdMountain\obj\Debug\net7.0\BirdMountain.dll
+D:\Programowanie\GitHub\CodeWars\BirdMountain\obj\Debug\net7.0\refint\BirdMountain.dll
+D:\Programowanie\GitHub\CodeWars\BirdMountain\obj\Debug\net7.0\BirdMountain.pdb
+D:\Programowanie\GitHub\CodeWars\BirdMountain\obj\Debug\net7.0\BirdMountain.genruntimeconfig.cache
+D:\Programowanie\GitHub\CodeWars\BirdMountain\obj\Debug\net7.0\ref\BirdMountain.dll

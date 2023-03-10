@@ -1,0 +1,15 @@
+D:\Programowanie\GitHub\CodeWars\PathFinder3\bin\Debug\net7.0\PathFinder3.exe
+D:\Programowanie\GitHub\CodeWars\PathFinder3\bin\Debug\net7.0\PathFinder3.deps.json
+D:\Programowanie\GitHub\CodeWars\PathFinder3\bin\Debug\net7.0\PathFinder3.runtimeconfig.json
+D:\Programowanie\GitHub\CodeWars\PathFinder3\bin\Debug\net7.0\PathFinder3.dll
+D:\Programowanie\GitHub\CodeWars\PathFinder3\bin\Debug\net7.0\PathFinder3.pdb
+D:\Programowanie\GitHub\CodeWars\PathFinder3\obj\Debug\net7.0\PathFinder3.csproj.AssemblyReference.cache
+D:\Programowanie\GitHub\CodeWars\PathFinder3\obj\Debug\net7.0\PathFinder3.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programowanie\GitHub\CodeWars\PathFinder3\obj\Debug\net7.0\PathFinder3.AssemblyInfoInputs.cache
+D:\Programowanie\GitHub\CodeWars\PathFinder3\obj\Debug\net7.0\PathFinder3.AssemblyInfo.cs
+D:\Programowanie\GitHub\CodeWars\PathFinder3\obj\Debug\net7.0\PathFinder3.csproj.CoreCompileInputs.cache
+D:\Programowanie\GitHub\CodeWars\PathFinder3\obj\Debug\net7.0\PathFinder3.dll
+D:\Programowanie\GitHub\CodeWars\PathFinder3\obj\Debug\net7.0\refint\PathFinder3.dll
+D:\Programowanie\GitHub\CodeWars\PathFinder3\obj\Debug\net7.0\PathFinder3.pdb
+D:\Programowanie\GitHub\CodeWars\PathFinder3\obj\Debug\net7.0\PathFinder3.genruntimeconfig.cache
+D:\Programowanie\GitHub\CodeWars\PathFinder3\obj\Debug\net7.0\ref\PathFinder3.dll
