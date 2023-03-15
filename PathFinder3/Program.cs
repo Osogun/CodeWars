@@ -42,159 +42,101 @@ public class Program
                    "000010\n" +
                    "000109\n" +
                    "001010",
-                t1="",
-                t2="0",
-                t3="00",
-                t4="9999090\n"+
-                   "9999999";
+                t1 = "",
+                t2 = "0",
+                t3 = "00",
+                t4 = "9999090\n" +
+                   "9999999",
+                t5="0212\n" +
+                    "0111";
 
-        Console.WriteLine(Finder.PathFinder(a));
-
+        Console.WriteLine(PathFinder(a));
+        Console.WriteLine(PathFinder(b));
+        Console.WriteLine(PathFinder(c));
+        Console.WriteLine(PathFinder(d));
+        Console.WriteLine(PathFinder(e));
+        Console.WriteLine(PathFinder(f));
+        Console.WriteLine(PathFinder(g));
     }
-}
 
-public class Finder
-{
     public static int PathFinder(string maze)
     {
-        if(maze.Length==0) return 0;
-        string[] stringMap = maze.Split("\n");
-        int mapLengthX = stringMap[0].Length;
-        int mapLengthY = stringMap.Length;
-        RouteFinder rf = new RouteFinder();
-
-        // Maping nodes
-        int n = 0;
-        for (int i = 0; i < mapLengthY; i++)
-            for (int j = 0; j < mapLengthX; j++)
+        // Convert map
+        if (maze.Length == 0) return 0;
+        string[] textMap = maze.Split("\n");
+        int mapWidth = textMap[0].Length;
+        int mapHeight = textMap.Length;
+        List<Cell> cellMap = new List<Cell>();
+        for (int j = 0; j < mapHeight; j++)
+        {
+            for (int i = 0; i < mapWidth; i++)
             {
-                rf.node.Add(new Node(j, i, (int)Char.GetNumericValue(stringMap[i][j])));
-                rf.cost.Add(0);
-                rf.route.Add(null);
-                rf.state.Add(State.Undefined);
-                if (i == mapLengthY - 1 && j == mapLengthX - 1)
-                    rf.node[n].isEndPoint = true;
-                n++;
+                Cell node = new Cell(i, j, (int)Char.GetNumericValue(textMap[j][i]));
+                if ((i == mapWidth - 1) && (j == mapHeight - 1)) node.isTargetCell = true;
+                cellMap.Add(node);
             }
-
-        // Conecting nodes
-        foreach (Node nd in rf.node)
-        {
-            nd.FoundConncections(rf.node, mapLengthX, mapLengthY);
         }
-
-
-        // Dijkstra's algorithm
-        Node currentNode = rf.node[0];
-        while (currentNode.isEndPoint == false)
+        // Handle to the function that sorts the cells
+        Comparison<Cell> cellComparison = new Comparison<Cell>(SortCells);        
+        // A* Alghorithm  
+        List<Cell> possiblePaths = new List<Cell>();
+        Cell currentCell = cellMap[0];
+        currentCell.wasFounded=true;
+        possiblePaths.Add(currentCell);
+        while (currentCell.isTargetCell == false)
         {
-            rf.CountRoutes(currentNode);
-            currentNode = rf.CheapestNode();
+            possiblePaths.Remove(currentCell);
+            if(currentCell.Conncections.Count==0) currentCell.FoundConnections(cellMap, mapWidth, mapHeight);
+            foreach(Cell node in currentCell.Conncections) {
+                if(node.wasFounded!=true)
+                {
+                    node.wasFounded=true;
+                    possiblePaths.Add(node);
+                }
+            }
+            possiblePaths.Sort(cellComparison);
+            currentCell = possiblePaths.Last();
         }
+        return currentCell.cost;
+    }
 
-        return rf.cost[rf.node.IndexOf(currentNode)];
+    public static int SortCells(Cell a, Cell b)
+    {
+        if(a.cost<b.cost) return 1;
+        else if (a.cost==b.cost) return 0;
+        else return -1;
     }
 }
 
-public class Node
+public class Cell
 {
     public int x;
     public int y;
-    public int altitude;
-    public bool isEndPoint = false;
-    public List<Connection> routes = new List<Connection>();
+    public int height;
+    public bool isTargetCell = false;
+    public int cost = 0;
+    public List<Cell> Conncections = new List<Cell>();
+    public bool wasFounded=false;
 
-    public Node(int x, int y, int height)
+    public Cell(int x, int y, int h)
     {
         this.x = x;
         this.y = y;
-        altitude = height;
+        this.height = h;
     }
 
-    public static Node? FoundNode(int x, int y, List<Node> map)
+    public static Cell? FoundCell(int x, int y, List<Cell> map)
     {
-        foreach (Node nd in map)
-        {
-            if (nd.x == x && nd.y == y)
-            {
-                return nd;
-            }
-        }
+        foreach (Cell node in map) if (node.x == x && node.y == y) return node;
         return null;
     }
 
-    public void FoundConncections(List<Node> map, int mapLengthX, int mapLengthY)
+    public void FoundConnections(List<Cell> map, int mapWidth, int mapHeight)
     {
-        if (x != 0)
-            routes.Add(new Connection(this, FoundNode(x - 1, y, map)));
-        if (x != mapLengthX - 1)
-            routes.Add(new Connection(this, FoundNode(x + 1, y, map)));
-        if (y != 0)
-            routes.Add(new Connection(this, FoundNode(x, y - 1, map)));
-        if (y != mapLengthY - 1)
-            routes.Add(new Connection(this, FoundNode(x, y + 1, map)));
+        if (this.x != 0) this.Conncections.Add(FoundCell(this.x - 1, this.y, map));
+        if (this.x != mapWidth - 1) this.Conncections.Add(FoundCell(this.x + 1, this.y, map));
+        if (this.y != 0) this.Conncections.Add(FoundCell(this.x, this.y - 1, map));
+        if (this.y != mapHeight - 1) this.Conncections.Add(FoundCell(this.x, this.y + 1, map));
+        foreach(Cell node in this.Conncections) node.cost=this.cost+(Math.Abs(this.height-node.height));
     }
-}
-
-public class Connection
-{
-    public Node startNode;
-    public Node endNode;
-    public int cost;
-
-    public Connection(Node startNode, Node endNode)
-    {
-        this.startNode = startNode;
-        this.endNode = endNode;
-        cost = Math.Abs(startNode.altitude - endNode.altitude);
-    }
-}
-
-public enum State
-{
-    Undefined = 0,
-    Defined = 1,
-    Counted = 2
-
-}
-
-public class RouteFinder
-{
-    public List<Node> node = new List<Node>();
-    public List<int> cost = new List<int>();
-    public List<Connection> route = new List<Connection>();
-    public List<State> state = new List<State>();
-
-    public void CountRoutes(Node currentNode)
-    {
-        int currentIndex = node.IndexOf(currentNode);
-        foreach (Connection route in currentNode.routes)
-        {
-            Node nextNode = route.endNode;
-            int nextIndex = node.IndexOf(nextNode);
-            if (state[nextIndex] == 0 || cost[nextIndex] > cost[currentIndex] + route.cost)
-            {
-                cost[nextIndex] = cost[currentIndex] + route.cost;
-                this.route[nextIndex] = route;
-                state[nextIndex] = State.Defined;
-            }
-        }
-        state[currentIndex] = State.Counted;
-    }
-
-    public Node? CheapestNode()
-    {
-        (Node? node, int? cost) cheapestNode = (null, null);
-        foreach (Node nd in node)
-        {
-            int index = node.IndexOf(nd);
-            if(cheapestNode==(null,null) && state[index]==State.Defined) cheapestNode=(nd, cost[index]);
-            else if (cheapestNode!=(null, null) && state[index]==State.Defined){
-                if(cost[index]<cheapestNode.cost) cheapestNode=(nd, cost[index]);
-            }
-
-        }
-        return cheapestNode.node;
-    }
-
 }
