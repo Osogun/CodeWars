@@ -80,18 +80,22 @@ public class Program
         Comparison<Cell> cellComparison = new Comparison<Cell>(SortCells);        
         // A* Alghorithm  
         List<Cell> possiblePaths = new List<Cell>();
+        List<Cell> foundedNodes = new List<Cell>();
         Cell currentCell = cellMap[0];
-        currentCell.wasFounded=true;
         possiblePaths.Add(currentCell);
+        foundedNodes.Add(currentCell);
         while (currentCell.isTargetCell == false)
         {
             possiblePaths.Remove(currentCell);
             if(currentCell.Conncections.Count==0) currentCell.FoundConnections(cellMap, mapWidth, mapHeight);
             foreach(Cell node in currentCell.Conncections) {
-                if(node.wasFounded!=true)
+                if(node.cost==0 || node.cost>currentCell.cost+Math.Abs(currentCell.height-node.height))
                 {
-                    node.wasFounded=true;
-                    possiblePaths.Add(node);
+                    node.cost=currentCell.cost+Math.Abs(currentCell.height-node.height);
+                    if(!foundedNodes.Contains(node)){
+                        possiblePaths.Add(node);
+                        foundedNodes.Add(currentCell);
+                    }
                 }
             }
             possiblePaths.Sort(cellComparison);
@@ -116,7 +120,6 @@ public class Cell
     public bool isTargetCell = false;
     public int cost = 0;
     public List<Cell> Conncections = new List<Cell>();
-    public bool wasFounded=false;
 
     public Cell(int x, int y, int h)
     {
@@ -137,6 +140,5 @@ public class Cell
         if (this.x != mapWidth - 1) this.Conncections.Add(FoundCell(this.x + 1, this.y, map));
         if (this.y != 0) this.Conncections.Add(FoundCell(this.x, this.y - 1, map));
         if (this.y != mapHeight - 1) this.Conncections.Add(FoundCell(this.x, this.y + 1, map));
-        foreach(Cell node in this.Conncections) node.cost=this.cost+(Math.Abs(this.height-node.height));
     }
 }
